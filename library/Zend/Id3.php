@@ -74,11 +74,16 @@ class Zend_Id3
 		$this->_info['avdataend']    = $this->info['filesize'];
 
 
-		foreach(array('id3v1') as $tagName) {
+		foreach(array('id3v1', 'id3v2') as $tagName) {
 			switch($tagName) {
 				case 'id3v1':
 					include_once 'Zend/Id3/Adapter/Id3v1.php';
 					$tag = new Zend_Id3_Adapter_Id3v1($this);
+					$tag->analyze();
+					break;
+				case 'id3v2':
+					include_once 'Zend/Id3/Adapter/Id3v2.php';
+					$tag = new Zend_Id3_Adapter_Id3v2($this);
 					$tag->analyze();
 					break;
 			}

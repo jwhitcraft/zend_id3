@@ -1,6 +1,6 @@
 <?php
 /**
- * Zend_Id3_adapter_Id3v1
+ * Zend_Id3_Adapter_Id3v1
  *
  * @uses
  * @package    Zend

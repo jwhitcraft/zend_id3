@@ -18,7 +18,7 @@ class Zend_Id3Test extends PHPUnit_Framework_TestCase
 	/**
 	 * @var Zend_Id3
 	 */
-	private $Zend_Id3;
+	private $_zendId3;
 
 	/**
 	 * Prepares the environment before running a test.
@@ -27,10 +27,7 @@ class Zend_Id3Test extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		// TODO Auto-generated Zend_Id3Test::setUp()
-
-
-		$this->Zend_Id3 = new Zend_Id3(/* parameters */);
+		$this->_zendId3 = new Zend_Id3();
 
 	}
 
@@ -39,33 +36,23 @@ class Zend_Id3Test extends PHPUnit_Framework_TestCase
 	 */
 	protected function tearDown()
 	{
-		// TODO Auto-generated Zend_Id3Test::tearDown()
+		$this->_zendId3 = null;
 
-
-		$this->Zend_Id3 = null;
-
-		parent::tearDown ();
-	}
-
-	/**
-	 * Constructs the test case.
-	 */
-	public function __construct()
-	{
-		// TODO Auto-generated constructor
+		parent::tearDown();
 	}
 
 	/**
 	 * Tests Zend_Id3::analyze()
 	 */
-	public function testAnalyzeFile()
+	public function testAnalyzeFileForId3V1Tags()
 	{
-		$info = $this->Zend_Id3->analyze(dirname(__FILE__) . '/Id3/_files/demo.mp3');
+		$response = $this->_zendId3->analyze(dirname(__FILE__) . '/Id3/_files/demo.mp3');
 
-		$this->assertType('array', $info);
-		$this->assertEquals('Juman Sucks', $info['id3v1']['album']);
-		$this->assertEquals("Llama Whippin' Intro", $info['id3v1']['title']);
-		$this->assertEquals('Nullsoft', $info['id3v1']['artist']);
+		$this->assertType('array', $response);
+		$this->assertTrue(isset($response['id3v1']));
+		$this->assertEquals('Juman Sucks', $response['id3v1']['album']);
+		$this->assertEquals("Llama Whippin' Intro", $response['id3v1']['title']);
+		$this->assertEquals('Nullsoft', $response['id3v1']['artist']);
 	}
 }
 
